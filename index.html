@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Test</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+        :root {
+            --bg: #f3f4f6;
+            --surface: #ffffff;
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --primary-soft: #eef2ff;
+            --primary-soft-text: #3730a3;
+            --text: #1f2937;
+            --text-muted: #6b7280;
+            --border: #d1d5db;
+            --green: #16a34a;
+            --green-dark: #15803d;
+            --red: #dc2626;
+            --red-dark: #b91c1c;
+            --red-soft: #fee2e2;
+            --red-soft-text: #b91c1c;
+            --yellow: #ca8a04;
+            --blue: #2563eb;
+            --blue-dark: #1d4ed8;
+            --gray-btn: #4b5563;
+            --gray-btn-dark: #374151;
+            --radius: 0.5rem;
+            --radius-sm: 0.375rem;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, Segoe UI, Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 1rem;
+        }
+
+        .app { max-width: 42rem; margin: 0 auto; padding: 1.5rem 0; }
+
+        .card {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .card--center { text-align: center; }
+        .hidden { display: none !important; }
+
+        .title-primary { font-size: 1.875rem; font-weight: 700; color: var(--primary); margin: 0 0 0.25rem; }
+        .title-secondary { font-size: 1.5rem; font-weight: 700; color: var(--primary); margin: 0 0 0.5rem; }
+        .subtitle { color: var(--text-muted); margin: 0 0 1.5rem; }
+
+        .rules-box {
+            text-align: left;
+            background: var(--primary-soft);
+            color: var(--primary-soft-text);
+            border-radius: var(--radius);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+        }
+
+        .rules-box p { margin: 0.25rem 0; }
+
+        .field { text-align: left; margin-bottom: 1rem; }
+        .field label { display: block; font-size: 0.875rem; font-weight: 500; color: var(--text); margin-bottom: 0.25rem; }
+
+        .field input[type="text"],
+        .field select,
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font: inherit;
+            color: var(--text);
+            background: var(--surface);
+        }
+
+        .field input[type="text"]:focus,
+        .field select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25);
+        }
+
+        .field-error { color: var(--red); font-size: 0.875rem; margin: 0.25rem 0 0; min-height: 1.1em; }
+
+        .checkbox-row { display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.25rem; }
+        .checkbox-row input { margin-top: 0.2rem; }
+        .checkbox-row label { font-size: 0.875rem; color: var(--text); }
+
+        .btn {
+            display: inline-block;
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            border: none;
+            cursor: pointer;
+            color: #fff;
+            font: inherit;
+            box-shadow: var(--shadow-md);
+            transition: background-color 0.2s ease;
+        }
+
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .btn-green { background: var(--green); }
+        .btn-green:hover:not(:disabled) { background: var(--green-dark); }
+        .btn-indigo { background: var(--primary); }
+        .btn-indigo:hover:not(:disabled) { background: var(--primary-dark); }
+        .btn-blue { background: var(--blue); }
+        .btn-blue:hover:not(:disabled) { background: var(--blue-dark); }
+        .btn-gray { background: var(--gray-btn); }
+        .btn-gray:hover:not(:disabled) { background: var(--gray-btn-dark); }
+        .btn-block { width: 100%; }
+
+        @media (min-width: 480px) {
+            .btn-block { width: auto; }
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        @media (min-width: 480px) {
+            .actions { flex-direction: row; }
+        }
+
+        .test-lock { user-select: none; -webkit-user-select: none; }
+        .test-lock input, .test-lock textarea { user-select: text; -webkit-user-select: text; }
+
+        .quiz-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .progress-text { font-size: 0.875rem; font-weight: 500; color: var(--text-muted); }
+        .quiz-meta { display: flex; align-items: center; gap: 0.75rem; }
+
+        .badge-warning {
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: var(--red-soft);
+            color: var(--red-soft-text);
+            padding: 0.25rem 0.6rem;
+            border-radius: 9999px;
+        }
+
+        .timer {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text);
+            background: var(--bg);
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius);
+        }
+
+        .timer.danger { color: var(--red); }
+
+        .question-panel { background: var(--primary-soft); padding: 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow-inner); }
+
+        .passage-box {
+            background: var(--surface);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: var(--radius-sm);
+            text-align: left;
+            color: var(--text);
+            white-space: pre-line;
+        }
+
+        .image-box { margin-bottom: 1rem; text-align: center; }
+        .image-box img { max-width: 100%; height: auto; border-radius: var(--radius-sm); }
+
+        .audio-box { margin-bottom: 1rem; }
+        .audio-box audio { width: 100%; }
+        .audio-error { color: var(--red); font-size: 0.875rem; margin-top: 0.25rem; }
+
+        .question-text { font-size: 1.25rem; font-weight: 600; color: var(--primary-soft-text); margin: 0 0 1rem; text-align: left; }
+
+        .choices {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 480px) {
+            .choices { grid-template-columns: 1fr 1fr; }
+        }
+
+        .choice-btn {
+            background: #e5e7eb;
+            color: var(--text);
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius);
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            box-shadow: var(--shadow-sm);
+            font: inherit;
+        }
+
+        .choice-btn:hover { background: #d1d5db; }
+
+        .choice-btn.selected {
+            background: #a5b4fc;
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+
+        .feedback { min-height: 2.5rem; margin-top: 1rem; font-size: 1.125rem; font-weight: 500; }
+        .feedback.success { color: var(--green); }
+        .feedback.error { color: var(--red); }
+        .feedback.warning { color: var(--yellow); }
+        .feedback.info { color: var(--blue); }
+
+        .results-box { text-align: left; background: #f9fafb; border-radius: var(--radius); padding: 1rem; margin-bottom: 1.5rem; }
+        .results-box p { margin: 0.4rem 0; }
+        .score-highlight { color: var(--green); font-weight: 700; }
+
+        .status-msg { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1rem; }
+        .close-fallback { font-size: 0.875rem; color: var(--text-muted); margin-top: 0.75rem; }
+
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            z-index: 50;
+            backdrop-filter: blur(2px);
+        }
+
+        .modal-box {
+            background: var(--surface);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-xl);
+            padding: 1.5rem;
+            max-width: 24rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        .modal-box h3 { color: var(--red); font-size: 1.125rem; font-weight: 700; margin: 0 0 0.5rem; }
+        .modal-box p { color: var(--text); margin: 0 0 1rem; }
+
+        :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+    </style>
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- ============================================================
+             SCREEN: RESUME AN INTERRUPTED TEST (only shown if a browser
+             crash / accidental refresh state is found for this tab)
+        ============================================================= -->
+        <div id="resume-screen" class="hidden card card--center">
+            <h1 class="title-secondary">Unfinished Test Found</h1>
+            <p class="subtitle">We found an in-progress test for <strong id="resume-name"></strong> (ID: <span
+                    id="resume-id"></span>, Group: <span id="resume-group"></span>).</p>
+            <p class="rules-box">Time remaining: <strong id="resume-time-left"></strong>. Resuming continues your
+                timer from right now &mdash; time keeps counting down even while the tab was closed, so no time is
+                added back.</p>
+            <div class="actions">
+                <button id="resume-btn" class="btn btn-indigo btn-block">Resume Test</button>
+                <button id="discard-btn" class="btn btn-gray btn-block">Discard &amp; Start New</button>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             SCREEN 1: STUDENT INFO / START SCREEN
+        ============================================================= -->
+        <div id="info-screen" class="hidden card card--center">
+            <h1 id="cfg-title-display" class="title-primary">Test Title</h1>
+            <p id="cfg-subject-display" class="subtitle">Subject</p>
+
+            <div id="rules-box" class="rules-box">
+                <p>&#8226; This test has <span id="cfg-count-display" class="font-semibold">0</span> question(s).</p>
+                <p>&#8226; Time limit: <span id="cfg-duration-display" class="font-semibold">0</span> minutes. The
+                    test submits automatically when time runs out.</p>
+                <p>&#8226; Once started, do not switch tabs, open other apps, or exit full-screen. Doing so is
+                    recorded as a warning, and after <span id="cfg-maxv-display" class="font-semibold">0</span>
+                    warnings the test is submitted automatically.</p>
+                <p>&#8226; The test cannot be retaken once submitted.</p>
+            </div>
+
+            <div>
+                <div class="field">
+                    <label for="student-name">Full Name</label>
+                    <input id="student-name" type="text" placeholder="e.g. Sokha Chan">
+                    <p id="name-error" class="field-error"></p>
+                </div>
+                <div class="field">
+                    <label for="student-id">Student ID</label>
+                    <input id="student-id" type="text" placeholder="e.g. S2026014" autocomplete="off">
+                    <p id="id-error" class="field-error">Letters and numbers only, no spaces.</p>
+                </div>
+                <div class="field">
+                    <label for="student-group">Group</label>
+                    <select id="student-group">
+                        <option value="" disabled selected>Select your group</option>
+                    </select>
+                    <p id="group-error" class="field-error"></p>
+                </div>
+                <div class="checkbox-row">
+                    <input id="agree-checkbox" type="checkbox">
+                    <label for="agree-checkbox">I have read the rules above and am ready to begin.</label>
+                </div>
+                <p id="agree-error" class="field-error"></p>
+            </div>
+
+            <button id="start-btn" class="btn btn-green btn-block" style="margin-top: 0.5rem;">Start Test</button>
+        </div>
+
+        <!-- ============================================================
+             SCREEN 2: QUIZ SCREEN
+        ============================================================= -->
+        <div id="quiz-screen" class="hidden card">
+
+            <div class="quiz-top">
+                <span id="progress-text" class="progress-text">Question 1 of 1</span>
+                <div class="quiz-meta">
+                    <span id="violation-badge" class="hidden badge-warning"></span>
+                    <span id="timer-display" class="timer">40:00</span>
+                </div>
+            </div>
+
+            <div class="question-panel test-lock">
+
+                <div id="passage-box" class="hidden passage-box"></div>
+
+                <div id="image-box" class="hidden image-box">
+                    <img id="question-image" src="" alt="Question image">
+                </div>
+
+                <div id="audio-box" class="hidden audio-box">
+                    <audio id="question-audio" controls></audio>
+                    <p id="audio-error" class="hidden audio-error">Audio failed to load &mdash; check the file path
+                        in the questions list.</p>
+                </div>
+
+                <p id="question-text" class="question-text">Loading question...</p>
+
+                <div id="choice-area" class="choices"></div>
+
+                <div id="text-answer-box" class="hidden">
+                    <textarea id="text-answer" rows="5" placeholder="Type your answer here..."></textarea>
+                </div>
+            </div>
+
+            <p id="feedback-text" class="feedback"></p>
+
+            <div class="actions">
+                <button id="submit-btn" class="btn btn-green">Submit Answer</button>
+                <button id="next-btn" class="hidden btn btn-indigo">Next Question</button>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             SCREEN 3: RESULTS SCREEN
+        ============================================================= -->
+        <div id="results-screen" class="hidden card card--center">
+            <h2 class="title-secondary">Test Submitted</h2>
+            <p id="result-reason" class="subtitle"></p>
+
+            <div class="results-box">
+                <p><strong>Name:</strong> <span id="result-name"></span></p>
+                <p><strong>Student ID:</strong> <span id="result-id"></span></p>
+                <p><strong>Group:</strong> <span id="result-group"></span></p>
+                <p><strong>Auto-graded score:</strong> <span id="result-score" class="score-highlight"></span></p>
+                <p><strong>Time taken:</strong> <span id="result-time"></span></p>
+                <p><strong>Tab/focus warnings:</strong> <span id="result-violations"></span></p>
+                <p id="result-written-row" class="hidden"><strong>Written responses awaiting teacher
+                        review:</strong> <span id="result-written"></span></p>
+            </div>
+
+            <p id="result-status-msg" class="status-msg"></p>
+
+            <div class="actions">
+                <button id="download-btn" class="btn btn-blue">Download Result File</button>
+                <button id="close-btn" class="btn btn-gray">Close Test</button>
+            </div>
+            <p id="close-fallback-msg" class="hidden close-fallback">This tab didn't close automatically &mdash; you
+                can close it now (Ctrl+W / Cmd+W, or the &times; on the tab).</p>
+        </div>
+
+    </div>
+
+    <!-- Anti-cheat warning modal -->
+    <div id="violation-modal" class="hidden modal-backdrop">
+        <div class="modal-box">
+            <h3>Warning Recorded</h3>
+            <p id="modal-message"></p>
+            <button id="modal-ok-btn" class="btn btn-indigo">OK, Return to Test</button>
+        </div>
+    </div>
+
+    <script>
+        /* =====================================================================
+           HOW TO REUSE THIS FOR A DIFFERENT SUBJECT
+           ---------------------------------------------------------------------
+           1. Edit the CONFIG object below (title, subject, time limit, etc).
+           2. Replace the QUESTIONS array with your own questions. Each question
+              is one object. Supported fields:
+
+              type      : 'choice'  -> multiple choice, auto-graded
+                          'text'    -> student types a written answer;
+                                       NOT auto-graded, shown to the teacher
+                                       for manual review at the end.
+              question  : the question text (required)
+              passage   : optional reading passage shown above the question
+                          (use for reading comprehension)
+              image     : optional image URL or file path (use for image-based
+                          questions, or "describe this image" writing prompts)
+              audio     : optional audio URL or file path (use for listening
+                          questions)
+              answers   : array of answer choices (required for type:'choice')
+              correct   : index of the correct answer in "answers" (required
+                          for type:'choice', 0 = first answer)
+
+              Images/audio can be:
+                - a web link, e.g. "https://yoursite.com/images/pic1.jpg"
+                - a local file next to this HTML file, e.g. "images/pic1.jpg"
+                  or "audio/track1.mp3" (put the files in an "images"/"audio"
+                  folder alongside this file)
+
+           3. OPTIONAL — auto-send results + block repeat attempts:
+              Set CONFIG.scriptUrl to a Google Apps Script Web App URL (see the
+              separate apps_script_backend.gs.txt file and setup steps you were
+              given). Leave it as "" to keep the app fully standalone — it will
+              still work with no backend at all, just like before.
+
+           4. Save the file and open it in a browser (or upload it wherever
+              your students will access it) — no server or build step needed.
+        ===================================================================== */
+
+        const CONFIG = {
+            testTitle: "Sample Subject Test",     // shown as the page/test title
+            subject: "General English",           // shown under the title
+            groups: ["Group 1", "Group 2", "Group 3", "Group 4", "Group 5"], // options in the Group dropdown — rename or add/remove as needed (e.g. "Class A", "Section 2")
+            durationMinutes: 40,                  // exam length
+            maxViolations: 3,                     // warnings allowed before auto-submit
+            shuffleQuestions: true,                // randomize question order per student
+            shuffleAnswers: true,                  // randomize each question's answer order per student
+            requireFullscreen: true,               // ask the browser to lock to full-screen
+            blockCopyPaste: true,                  // block copy/cut/paste during the test
+            blockRightClick: true,                 // block the right-click menu during the test
+            blockDevToolsShortcuts: true,          // block F12 / Ctrl+Shift+I / Ctrl+U
+
+            // Leave scriptUrl empty ("") to run fully standalone with no backend.
+            // Paste your deployed Google Apps Script Web App URL here to enable
+            // automatic result submission to a Google Sheet.
+            scriptUrl: "",
+            // If scriptUrl is set, refuse to start a test for a Student ID that
+            // has already submitted a result (checked against the Sheet).
+            blockRepeatAttempts: true
+        };
+
+        const QUESTIONS = [
+            // --- plain multiple choice ---
+            {
+                type: "choice",
+                question: "What is the capital of France?",
+                answers: ["Paris", "London", "Berlin", "Madrid"],
+                correct: 0
+            },
+            {
+                type: "choice",
+                question: "Which word is closest in meaning to 'happy'?",
+                answers: ["Sad", "Joyful", "Angry", "Tired"],
+                correct: 1
+            },
+            // --- multiple choice with an image ---
+            {
+                type: "choice",
+                image: "https://placehold.co/500x300?text=Rainy+City+Street",
+                question: "Which sentence best describes this image?",
+                answers: [
+                    "A sunny beach with children playing.",
+                    "A busy city street on a rainy day.",
+                    "A quiet forest in autumn.",
+                    "A snowy mountain peak."
+                ],
+                correct: 1
+            },
+            // --- open-ended: describing an image (manually reviewed) ---
+            {
+                type: "text",
+                image: "https://placehold.co/500x300?text=Family+Picnic",
+                question: "Look at the picture. Write 2-3 sentences describing what is happening."
+            },
+            // --- reading comprehension (passage + multiple choice) ---
+            {
+                type: "choice",
+                passage: "Maria wakes up at 6 a.m. every day. She goes for a short run, then has breakfast with her family before heading to work.",
+                question: "According to the passage, what does Maria do right after waking up?",
+                answers: ["Has breakfast", "Goes to work", "Goes for a run", "Reads a book"],
+                correct: 2
+            },
+            // --- open-ended writing (manually reviewed) ---
+            {
+                type: "text",
+                question: "Write a short paragraph (4-5 sentences) about your favorite hobby and why you enjoy it."
+            },
+            // --- listening (audio + multiple choice) ---
+            {
+                type: "choice",
+                audio: "audio/listening-sample.mp3",
+                question: "Listen to the audio clip. What is the speaker mainly talking about?",
+                answers: [
+                    "Booking a hotel room",
+                    "Ordering food at a restaurant",
+                    "Asking for directions",
+                    "Complaining about a product"
+                ],
+                correct: 0
+            }
+        ];
+
+        // ---------------------------------------------------------------
+        // State
+        // ---------------------------------------------------------------
+        const STORAGE_KEY = 'onlineTestState_v1';
+
+        let currentIndex = 0;
+        let score = 0;
+        let gradedTotal = 0;
+        let selectedAnswer = null;
+        let responses = [];
+        let violations = 0;
+        let lastViolationAt = 0;
+        let testActive = false;
+        let timerInterval = null;
+        let timeRemaining = 0;
+        let testEndAt = 0;
+        let startTime = null;
+        let studentName = "";
+        let studentId = "";
+        let studentGroup = "";
+        let lastReportText = "";
+        let resultDownloaded = false;
+        let autoSubmitStatus = 'disabled'; // 'disabled' | 'pending' | 'success' | 'failed'
+        let pendingResumeState = null;
+        const fullscreenSupported = !!(document.documentElement.requestFullscreen);
+
+        // ---------------------------------------------------------------
+        // Element refs
+        // ---------------------------------------------------------------
+        const resumeScreen = document.getElementById('resume-screen');
+        const resumeName = document.getElementById('resume-name');
+        const resumeId = document.getElementById('resume-id');
+        const resumeGroup = document.getElementById('resume-group');
+        const resumeTimeLeft = document.getElementById('resume-time-left');
+        const resumeBtn = document.getElementById('resume-btn');
+        const discardBtn = document.getElementById('discard-btn');
+
+        const infoScreen = document.getElementById('info-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+
+        const nameInput = document.getElementById('student-name');
+        const idInput = document.getElementById('student-id');
+        const groupSelect = document.getElementById('student-group');
+        const nameError = document.getElementById('name-error');
+        const idError = document.getElementById('id-error');
+        const groupError = document.getElementById('group-error');
+        const agreeCheckbox = document.getElementById('agree-checkbox');
+        const agreeError = document.getElementById('agree-error');
+        const startBtn = document.getElementById('start-btn');
+        const rulesBox = document.getElementById('rules-box');
+
+        const progressText = document.getElementById('progress-text');
+        const timerDisplay = document.getElementById('timer-display');
+        const violationBadge = document.getElementById('violation-badge');
+
+        const passageBox = document.getElementById('passage-box');
+        const imageBox = document.getElementById('image-box');
+        const questionImage = document.getElementById('question-image');
+        const audioBox = document.getElementById('audio-box');
+        const questionAudio = document.getElementById('question-audio');
+        const audioError = document.getElementById('audio-error');
+        const questionText = document.getElementById('question-text');
+        const choiceArea = document.getElementById('choice-area');
+        const textAnswerBox = document.getElementById('text-answer-box');
+        const textAnswer = document.getElementById('text-answer');
+
+        const feedbackText = document.getElementById('feedback-text');
+        const submitBtn = document.getElementById('submit-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        const violationModal = document.getElementById('violation-modal');
+        const modalMessage = document.getElementById('modal-message');
+        const modalOkBtn = document.getElementById('modal-ok-btn');
+
+        const resultReason = document.getElementById('result-reason');
+        const resultName = document.getElementById('result-name');
+        const resultId = document.getElementById('result-id');
+        const resultGroup = document.getElementById('result-group');
+        const resultScore = document.getElementById('result-score');
+        const resultTime = document.getElementById('result-time');
+        const resultViolations = document.getElementById('result-violations');
+        const resultWrittenRow = document.getElementById('result-written-row');
+        const resultWritten = document.getElementById('result-written');
+        const resultStatusMsg = document.getElementById('result-status-msg');
+        const downloadBtn = document.getElementById('download-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const closeFallbackMsg = document.getElementById('close-fallback-msg');
+
+        // ---------------------------------------------------------------
+        // Init
+        // ---------------------------------------------------------------
+        function initInfoScreen() {
+            document.title = CONFIG.testTitle;
+            document.getElementById('cfg-title-display').textContent = CONFIG.testTitle;
+            document.getElementById('cfg-subject-display').textContent = CONFIG.subject;
+            document.getElementById('cfg-count-display').textContent = QUESTIONS.length;
+            document.getElementById('cfg-duration-display').textContent = CONFIG.durationMinutes;
+            document.getElementById('cfg-maxv-display').textContent = CONFIG.maxViolations;
+            timerDisplay.textContent = formatDuration(CONFIG.durationMinutes * 60);
+
+            CONFIG.groups.forEach(g => {
+                const opt = document.createElement('option');
+                opt.value = g;
+                opt.textContent = g;
+                groupSelect.appendChild(opt);
+            });
+
+            if (!fullscreenSupported) {
+                const note = document.createElement('p');
+                note.textContent = '\u2022 Full-screen lock isn\'t supported on this browser/device — tab-switch detection will still be active.';
+                rulesBox.appendChild(note);
+            }
+        }
+
+        function showInfoScreen() {
+            infoScreen.classList.remove('hidden');
+        }
+
+        // ---------------------------------------------------------------
+        // Utilities
+        // ---------------------------------------------------------------
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function shuffleAnswersInPlace(question) {
+            if (question.type !== 'choice' || !Array.isArray(question.answers)) return;
+            const original = question.answers;
+            const correctText = original[question.correct];
+            const shuffled = shuffleArray(original.slice());
+            question.answers = shuffled;
+            question.correct = shuffled.indexOf(correctText);
+        }
+
+        function formatDuration(totalSeconds) {
+            const s = Math.max(0, totalSeconds);
+            const m = Math.floor(s / 60);
+            const sec = s % 60;
+            return String(m).padStart(2, '0') + ':' + String(sec).padStart(2, '0');
+        }
+
+        // ---------------------------------------------------------------
+        // Crash / accidental-refresh recovery (sessionStorage)
+        // The timer is anchored to an absolute end time (testEndAt), not a
+        // countdown that pauses when the page is closed — so re-opening the
+        // tab can restore answers, but never "pauses" the clock.
+        // ---------------------------------------------------------------
+        function saveState() {
+            try {
+                sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
+                    studentName, studentId, studentGroup,
+                    questions: QUESTIONS,
+                    currentIndex, score, gradedTotal, responses, violations,
+                    testEndAt
+                }));
+            } catch (err) { /* best-effort only */ }
+        }
+
+        function clearSavedState() {
+            try { sessionStorage.removeItem(STORAGE_KEY); } catch (err) { /* ignore */ }
+        }
+
+        function restoreState(saved) {
+            studentName = saved.studentName;
+            studentId = saved.studentId;
+            studentGroup = saved.studentGroup || '';
+            QUESTIONS.length = 0;
+            saved.questions.forEach(q => QUESTIONS.push(q));
+            currentIndex = saved.currentIndex;
+            score = saved.score;
+            gradedTotal = saved.gradedTotal;
+            responses = saved.responses;
+            violations = saved.violations;
+            testEndAt = saved.testEndAt;
+            startTime = testEndAt - CONFIG.durationMinutes * 60000;
+        }
+
+        function checkForSavedState() {
+            let saved = null;
+            try {
+                const raw = sessionStorage.getItem(STORAGE_KEY);
+                if (raw) saved = JSON.parse(raw);
+            } catch (err) { saved = null; }
+
+            if (!saved || !saved.testEndAt) {
+                showInfoScreen();
+                return;
+            }
+
+            if (Date.now() >= saved.testEndAt) {
+                // Time already ran out while the tab was closed — submit what was answered.
+                restoreState(saved);
+                testActive = true;
+                finishTest('time-up');
+                return;
+            }
+
+            pendingResumeState = saved;
+            resumeName.textContent = saved.studentName;
+            resumeId.textContent = saved.studentId;
+            resumeGroup.textContent = saved.studentGroup || '';
+            resumeTimeLeft.textContent = formatDuration(Math.round((saved.testEndAt - Date.now()) / 1000));
+            resumeScreen.classList.remove('hidden');
+        }
+
+        resumeBtn.addEventListener('click', () => {
+            restoreState(pendingResumeState);
+            resumeScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+
+            testActive = true;
+            timeRemaining = Math.round((testEndAt - Date.now()) / 1000);
+            timerDisplay.textContent = formatDuration(timeRemaining);
+            timerInterval = setInterval(tick, 1000);
+
+            if (CONFIG.requireFullscreen && fullscreenSupported) {
+                document.documentElement.requestFullscreen().catch(() => { });
+            }
+            attachAntiCheat();
+            loadQuestion();
+        });
+
+        discardBtn.addEventListener('click', () => {
+            clearSavedState();
+            resumeScreen.classList.add('hidden');
+            showInfoScreen();
+        });
+
+        // ---------------------------------------------------------------
+        // Optional backend: Google Apps Script (see apps_script_backend file)
+        // ---------------------------------------------------------------
+        async function checkPriorAttempt(id) {
+            try {
+                const res = await fetch(CONFIG.scriptUrl + '?action=check&id=' + encodeURIComponent(id));
+                const data = await res.json();
+                return { attempted: !!data.attempted, checked: true };
+            } catch (err) {
+                return { attempted: false, checked: false };
+            }
+        }
+
+        async function submitResultsToBackend(timeTakenSec, reason) {
+            try {
+                const payload = {
+                    studentId, studentName, group: studentGroup,
+                    subject: CONFIG.subject, testTitle: CONFIG.testTitle,
+                    score, gradedTotal, violations,
+                    timeTaken: formatDuration(timeTakenSec),
+                    endedBecause: reason,
+                    answersText: lastReportText
+                };
+                const res = await fetch(CONFIG.scriptUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                return !!(data && data.status === 'ok');
+            } catch (err) {
+                return false;
+            }
+        }
+
+        // ---------------------------------------------------------------
+        // Start flow
+        // ---------------------------------------------------------------
+        startBtn.addEventListener('click', handleStart);
+
+        async function handleStart() {
+            const nameVal = nameInput.value.trim();
+            const idVal = idInput.value.trim();
+            const groupVal = groupSelect.value;
+            let valid = true;
+
+            nameError.textContent = '';
+            idError.textContent = '';
+            groupError.textContent = '';
+            agreeError.textContent = '';
+
+            if (!nameVal) {
+                nameError.textContent = 'Please enter your full name.';
+                valid = false;
+            }
+            if (!idVal) {
+                idError.textContent = 'Please enter your Student ID.';
+                valid = false;
+            } else if (!/^[A-Za-z0-9]+$/.test(idVal)) {
+                idError.textContent = 'Student ID must be letters and numbers only (no spaces or symbols).';
+                valid = false;
+            }
+            if (!groupVal) {
+                groupError.textContent = 'Please select your group.';
+                valid = false;
+            }
+            if (!agreeCheckbox.checked) {
+                agreeError.textContent = 'Please confirm you have read the rules above.';
+                valid = false;
+            }
+            if (!valid) return;
+
+            if (CONFIG.scriptUrl && CONFIG.blockRepeatAttempts) {
+                startBtn.disabled = true;
+                startBtn.textContent = 'Checking...';
+                let attemptCheck;
+                try {
+                    attemptCheck = await checkPriorAttempt(idVal);
+                } finally {
+                    startBtn.disabled = false;
+                    startBtn.textContent = 'Start Test';
+                }
+                if (attemptCheck.attempted) {
+                    idError.textContent = 'This Student ID has already submitted this test.';
+                    return;
+                }
+                if (!attemptCheck.checked) {
+                    console.warn('Could not verify previous attempts — continuing without duplicate-check.');
+                }
+            }
+
+            studentName = nameVal;
+            studentId = idVal;
+            studentGroup = groupVal;
+
+            if (CONFIG.shuffleQuestions) shuffleArray(QUESTIONS);
+            if (CONFIG.shuffleAnswers) QUESTIONS.forEach(shuffleAnswersInPlace);
+
+            infoScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+
+            testActive = true;
+            startTime = Date.now();
+            testEndAt = startTime + CONFIG.durationMinutes * 60000;
+            timeRemaining = CONFIG.durationMinutes * 60;
+            timerDisplay.textContent = formatDuration(timeRemaining);
+            timerInterval = setInterval(tick, 1000);
+
+            if (CONFIG.requireFullscreen && fullscreenSupported) {
+                document.documentElement.requestFullscreen().catch(() => { });
+            }
+
+            attachAntiCheat();
+            currentIndex = 0;
+            loadQuestion();
+            saveState();
+        }
+
+        // ---------------------------------------------------------------
+        // Timer — anchored to an absolute end time so backgrounding,
+        // throttling, or briefly closing the tab can't pause the clock.
+        // ---------------------------------------------------------------
+        function tick() {
+            timeRemaining = Math.round((testEndAt - Date.now()) / 1000);
+            if (timeRemaining <= 0) {
+                timeRemaining = 0;
+                timerDisplay.textContent = formatDuration(0);
+                finishTest('time-up');
+                return;
+            }
+            timerDisplay.textContent = formatDuration(timeRemaining);
+            timerDisplay.classList.toggle('danger', timeRemaining <= 300);
+        }
+
+        // ---------------------------------------------------------------
+        // Anti-cheat
+        // Note: no website can truly block Alt+Tab, closing the lid, or a
+        // phone camera pointed at the screen — browsers deliberately don't
+        // allow that level of control. What this DOES do, like real exam
+        // software: lock the page to full-screen, detect when the student
+        // leaves the tab/window or exits full-screen, warn them, and
+        // auto-submit after too many warnings.
+        // ---------------------------------------------------------------
+        function attachAntiCheat() {
+            document.addEventListener('visibilitychange', onVisibilityChange);
+            window.addEventListener('blur', onWindowBlur);
+            document.addEventListener('fullscreenchange', onFullscreenChange);
+            if (CONFIG.blockRightClick) document.addEventListener('contextmenu', blockEvent);
+            if (CONFIG.blockCopyPaste) {
+                document.addEventListener('copy', blockEvent);
+                document.addEventListener('cut', blockEvent);
+                document.addEventListener('paste', blockEvent);
+            }
+            if (CONFIG.blockDevToolsShortcuts) document.addEventListener('keydown', onKeyDown);
+            window.addEventListener('beforeunload', onBeforeUnload);
+        }
+
+        function detachAntiCheat() {
+            document.removeEventListener('visibilitychange', onVisibilityChange);
+            window.removeEventListener('blur', onWindowBlur);
+            document.removeEventListener('fullscreenchange', onFullscreenChange);
+            document.removeEventListener('contextmenu', blockEvent);
+            document.removeEventListener('copy', blockEvent);
+            document.removeEventListener('cut', blockEvent);
+            document.removeEventListener('paste', blockEvent);
+            document.removeEventListener('keydown', onKeyDown);
+            window.removeEventListener('beforeunload', onBeforeUnload);
+        }
+
+        function blockEvent(e) { if (testActive) e.preventDefault(); }
+
+        function onVisibilityChange() {
+            if (document.hidden) registerViolation('You switched away from the test tab or window.');
+        }
+
+        function onWindowBlur() {
+            registerViolation('The test window lost focus (possible app or tab switch).');
+        }
+
+        function onFullscreenChange() {
+            if (testActive && CONFIG.requireFullscreen && fullscreenSupported && !document.fullscreenElement) {
+                registerViolation('You exited full-screen mode.');
+            }
+        }
+
+        function onKeyDown(e) {
+            if (!testActive) return;
+            const key = e.key ? e.key.toUpperCase() : '';
+            const blockedCombo = key === 'F12' ||
+                (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(key)) ||
+                (e.ctrlKey && key === 'U');
+            if (blockedCombo) e.preventDefault();
+        }
+
+        function onBeforeUnload(e) {
+            if (testActive) {
+                saveState();
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        }
+
+        function registerViolation(message) {
+            if (!testActive) return;
+            const now = Date.now();
+            if (now - lastViolationAt < 800) return; // avoid double-counting the same event
+            lastViolationAt = now;
+            violations++;
+            violationBadge.textContent = 'Warnings: ' + violations + '/' + CONFIG.maxViolations;
+            violationBadge.classList.remove('hidden');
+            modalMessage.textContent = message + ' This has been recorded. Reaching the warning limit will submit your test automatically.';
+            violationModal.classList.remove('hidden');
+            saveState();
+            if (violations >= CONFIG.maxViolations) {
+                finishTest('violations');
+            }
+        }
+
+        modalOkBtn.addEventListener('click', () => {
+            violationModal.classList.add('hidden');
+            if (testActive && CONFIG.requireFullscreen && fullscreenSupported && !document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => { });
+            }
+        });
+
+        // ---------------------------------------------------------------
+        // Question rendering
+        // ---------------------------------------------------------------
+        function loadQuestion() {
+            selectedAnswer = null;
+            const q = QUESTIONS[currentIndex];
+
+            progressText.textContent = 'Question ' + (currentIndex + 1) + ' of ' + QUESTIONS.length;
+
+            passageBox.classList.toggle('hidden', !q.passage);
+            if (q.passage) passageBox.textContent = q.passage;
+
+            imageBox.classList.toggle('hidden', !q.image);
+            if (q.image) {
+                questionImage.src = q.image;
+            }
+
+            audioBox.classList.toggle('hidden', !q.audio);
+            audioError.classList.add('hidden');
+            if (q.audio) {
+                questionAudio.src = q.audio;
+                questionAudio.onerror = () => audioError.classList.remove('hidden');
+                questionAudio.load();
+            }
+
+            questionText.textContent = q.question;
+
+            choiceArea.innerHTML = '';
+            textAnswer.value = '';
+
+            if (q.type === 'text') {
+                choiceArea.classList.add('hidden');
+                textAnswerBox.classList.remove('hidden');
+            } else {
+                textAnswerBox.classList.add('hidden');
+                choiceArea.classList.remove('hidden');
+                q.answers.forEach((answer, idx) => {
+                    const btn = document.createElement('button');
+                    btn.textContent = answer;
+                    btn.className = 'choice-btn';
+                    btn.addEventListener('click', () => selectChoice(idx));
+                    choiceArea.appendChild(btn);
+                });
+            }
+
+            feedbackText.textContent = '';
+            feedbackText.className = 'feedback';
+            submitBtn.classList.remove('hidden');
+            nextBtn.classList.add('hidden');
+        }
+
+        function selectChoice(idx) {
+            selectedAnswer = idx;
+            Array.from(choiceArea.children).forEach((btn, i) => {
+                btn.classList.toggle('selected', i === idx);
+            });
+        }
+
+        submitBtn.addEventListener('click', handleSubmitAnswer);
+
+        function handleSubmitAnswer() {
+            const q = QUESTIONS[currentIndex];
+
+            if (q.type === 'text') {
+                const val = textAnswer.value.trim();
+                if (!val) {
+                    feedbackText.textContent = 'Please write a response before submitting.';
+                    feedbackText.className = 'feedback warning';
+                    return;
+                }
+                responses.push({ question: q.question, type: 'text', studentAnswer: val, correctAnswer: null, isCorrect: null });
+                feedbackText.textContent = 'Response recorded.';
+                feedbackText.className = 'feedback info';
+            } else {
+                if (selectedAnswer === null) {
+                    feedbackText.textContent = 'Please select an answer.';
+                    feedbackText.className = 'feedback warning';
+                    return;
+                }
+                const isCorrect = selectedAnswer === q.correct;
+                gradedTotal++;
+                if (isCorrect) score++;
+                responses.push({
+                    question: q.question,
+                    type: 'choice',
+                    studentAnswer: q.answers[selectedAnswer],
+                    correctAnswer: q.answers[q.correct],
+                    isCorrect: isCorrect
+                });
+                feedbackText.textContent = isCorrect ? 'Correct!' : ('Incorrect. Correct answer: ' + q.answers[q.correct]);
+                feedbackText.className = 'feedback ' + (isCorrect ? 'success' : 'error');
+            }
+
+            submitBtn.classList.add('hidden');
+            nextBtn.classList.remove('hidden');
+        }
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex++;
+            if (currentIndex < QUESTIONS.length) {
+                saveState();
+                loadQuestion();
+            } else {
+                finishTest('completed');
+            }
+        });
+
+        // ---------------------------------------------------------------
+        // Finish + results
+        // ---------------------------------------------------------------
+        async function finishTest(reason) {
+            if (!testActive) return;
+            testActive = false;
+            clearInterval(timerInterval);
+            detachAntiCheat();
+            violationModal.classList.add('hidden');
+            if (document.fullscreenElement && document.exitFullscreen) {
+                document.exitFullscreen().catch(() => { });
+            }
+            clearSavedState();
+
+            const timeTakenSec = Math.max(0, Math.round((Date.now() - startTime) / 1000));
+
+            resumeScreen.classList.add('hidden');
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+
+            const reasonMessages = {
+                completed: 'You completed the test.',
+                'time-up': "Time's up — your test was submitted automatically.",
+                violations: 'Your test was submitted automatically after repeated warnings.'
+            };
+            resultReason.textContent = reasonMessages[reason] || '';
+            resultName.textContent = studentName;
+            resultId.textContent = studentId;
+            resultGroup.textContent = studentGroup;
+            resultScore.textContent = score + ' / ' + gradedTotal;
+            resultTime.textContent = formatDuration(timeTakenSec);
+            resultViolations.textContent = violations;
+
+            const writtenCount = responses.filter(r => r.type === 'text').length;
+            resultWritten.textContent = writtenCount;
+            resultWrittenRow.classList.toggle('hidden', writtenCount === 0);
+
+            lastReportText = buildReportText(timeTakenSec, reason);
+
+            if (CONFIG.scriptUrl) {
+                autoSubmitStatus = 'pending';
+                updateResultStatusMessage();
+                const ok = await submitResultsToBackend(timeTakenSec, reason);
+                autoSubmitStatus = ok ? 'success' : 'failed';
+            } else {
+                autoSubmitStatus = 'disabled';
+            }
+            updateResultStatusMessage();
+        }
+
+        function updateResultStatusMessage() {
+            if (autoSubmitStatus === 'success') {
+                resultStatusMsg.textContent = 'Your results were sent to your teacher automatically. You can still download a copy below for your own records.';
+            } else if (autoSubmitStatus === 'failed') {
+                resultStatusMsg.textContent = "We couldn't send your results automatically (check your internet connection). Please download the result file below and send it to your teacher.";
+            } else if (autoSubmitStatus === 'pending') {
+                resultStatusMsg.textContent = 'Sending your results to your teacher...';
+            } else {
+                resultStatusMsg.textContent = 'Please tell your teacher you have finished, and download your result file below if asked to submit it.';
+            }
+        }
+
+        function buildReportText(timeTakenSec, reason) {
+            const lines = [];
+            lines.push('TEST REPORT');
+            lines.push('Subject: ' + CONFIG.subject);
+            lines.push('Test: ' + CONFIG.testTitle);
+            lines.push('Student Name: ' + studentName);
+            lines.push('Student ID: ' + studentId);
+            lines.push('Group: ' + studentGroup);
+            lines.push('Date: ' + new Date().toLocaleString());
+            lines.push('Time Taken: ' + formatDuration(timeTakenSec) + ' (limit ' + CONFIG.durationMinutes + ':00)');
+            lines.push('Auto-graded Score: ' + score + ' / ' + gradedTotal);
+            lines.push('Written Responses (need manual review): ' + responses.filter(r => r.type === 'text').length);
+            lines.push('Tab/Focus Warnings: ' + violations);
+            lines.push('Ended because: ' + reason);
+            lines.push('');
+            lines.push('---- ANSWERS ----');
+            responses.forEach((r, i) => {
+                lines.push('');
+                lines.push('Q' + (i + 1) + ': ' + r.question);
+                lines.push('Student answer: ' + r.studentAnswer);
+                if (r.type === 'choice') {
+                    lines.push('Correct answer: ' + r.correctAnswer);
+                    lines.push('Result: ' + (r.isCorrect ? 'Correct' : 'Incorrect'));
+                } else {
+                    lines.push('Result: Needs manual review');
+                }
+            });
+            return lines.join('\n');
+        }
+
+        downloadBtn.addEventListener('click', () => {
+            const blob = new Blob([lastReportText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            const safeGroup = (studentGroup || 'group').replace(/[^a-z0-9]+/gi, '_');
+            const safeName = (studentName || 'student').replace(/[^a-z0-9]+/gi, '_');
+            const safeId = (studentId || 'id').replace(/[^a-z0-9]+/gi, '_');
+            a.href = url;
+            a.download = safeGroup + '_' + safeName + '_' + safeId + '_results.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            resultDownloaded = true;
+        });
+
+        closeBtn.addEventListener('click', () => {
+            const backendConfirmedOk = autoSubmitStatus === 'success';
+            if (!resultDownloaded && !backendConfirmedOk) {
+                const proceed = confirm("You haven't downloaded your result file yet, and automatic submission hasn't succeeded. If your teacher expects this file, closing now means they won't get it. Close anyway?");
+                if (!proceed) return;
+            }
+            window.close();
+            // Browsers only allow scripts to close tabs they opened themselves.
+            // If this tab was opened normally (a link, a typed URL, a local file),
+            // window.close() is silently ignored and execution continues here.
+            setTimeout(() => {
+                closeFallbackMsg.classList.remove('hidden');
+            }, 300);
+        });
+
+        // ---------------------------------------------------------------
+        // Boot
+        // ---------------------------------------------------------------
+        initInfoScreen();
+        checkForSavedState();
+    </script>
+</body>
+
+</html>

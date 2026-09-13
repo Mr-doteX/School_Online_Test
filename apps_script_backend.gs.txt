@@ -1,0 +1,94 @@
+/* =====================================================================
+   GOOGLE APPS SCRIPT BACKEND — for online_test_app.html
+   ---------------------------------------------------------------------
+   What this does:
+     - Stores every test submission as a new row in a Google Sheet.
+     - Lets the test page check, before starting, whether a Student ID
+       has already submitted (so the same student can't retake it).
+
+   Setup: see the step-by-step instructions given alongside this file.
+   You do not need to change any code below to get started — just
+   paste this whole file into the Apps Script editor as-is.
+===================================================================== */
+
+var SHEET_NAME = 'Results';
+
+function doGet(e) {
+  var action = e.parameter.action;
+
+  if (action === 'check') {
+    var studentId = e.parameter.id || '';
+    var found = findRowByStudentId(studentId);
+    return jsonResponse({ attempted: !!found });
+  }
+
+  return jsonResponse({ error: 'Unknown action' });
+}
+
+function doPost(e) {
+  var data;
+  try {
+    data = JSON.parse(e.postData.contents);
+  } catch (err) {
+    return jsonResponse({ status: 'error', message: 'Invalid submission data.' });
+  }
+
+  var studentId = data.studentId || '';
+
+  // Server-side duplicate check too — this is the check that actually
+  // matters, since the page's own pre-check can be skipped by anyone
+  // editing the HTML. This one can't be bypassed from the browser.
+  if (findRowByStudentId(studentId)) {
+    return jsonResponse({ status: 'duplicate', message: 'This Student ID has already submitted a result.' });
+  }
+
+  var sheet = getSheet();
+  sheet.appendRow([
+    new Date(),
+    studentId,
+    data.studentName || '',
+    data.group || '',
+    data.subject || '',
+    data.testTitle || '',
+    data.score !== undefined ? data.score : '',
+    data.gradedTotal !== undefined ? data.gradedTotal : '',
+    data.violations !== undefined ? data.violations : '',
+    data.timeTaken || '',
+    data.endedBecause || '',
+    data.answersText || ''
+  ]);
+
+  return jsonResponse({ status: 'ok' });
+}
+
+function getSheet() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(SHEET_NAME);
+  if (!sheet) {
+    sheet = ss.insertSheet(SHEET_NAME);
+    sheet.appendRow([
+      'Timestamp', 'Student ID', 'Student Name', 'Group', 'Subject', 'Test',
+      'Score', 'Out Of', 'Warnings', 'Time Taken', 'Ended Because', 'Answers'
+    ]);
+    sheet.setFrozenRows(1);
+  }
+  return sheet;
+}
+
+function findRowByStudentId(studentId) {
+  if (!studentId) return null;
+  var sheet = getSheet();
+  var data = sheet.getDataRange().getValues();
+  for (var i = 1; i < data.length; i++) {
+    if (String(data[i][1]).toLowerCase() === String(studentId).toLowerCase()) {
+      return i + 1; // 1-based row number
+    }
+  }
+  return null;
+}
+
+function jsonResponse(obj) {
+  return ContentService
+    .createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}
