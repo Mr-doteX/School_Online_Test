@@ -37,7 +37,9 @@
             --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
         }
 
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'Inter', -apple-system, Segoe UI, Roboto, sans-serif;
@@ -47,7 +49,11 @@
             padding: 1rem;
         }
 
-        .app { max-width: 42rem; margin: 0 auto; padding: 1.5rem 0; }
+        .app {
+            max-width: 42rem;
+            margin: 0 auto;
+            padding: 1.5rem 0;
+        }
 
         .card {
             background: var(--surface);
@@ -56,12 +62,32 @@
             box-shadow: var(--shadow-xl);
         }
 
-        .card--center { text-align: center; }
-        .hidden { display: none !important; }
+        .card--center {
+            text-align: center;
+        }
 
-        .title-primary { font-size: 1.875rem; font-weight: 700; color: var(--primary); margin: 0 0 0.25rem; }
-        .title-secondary { font-size: 1.5rem; font-weight: 700; color: var(--primary); margin: 0 0 0.5rem; }
-        .subtitle { color: var(--text-muted); margin: 0 0 1.5rem; }
+        .hidden {
+            display: none !important;
+        }
+
+        .title-primary {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 0 0 0.25rem;
+        }
+
+        .title-secondary {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 0 0 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            margin: 0 0 1.5rem;
+        }
 
         .rules-box {
             text-align: left;
@@ -73,10 +99,22 @@
             font-size: 0.875rem;
         }
 
-        .rules-box p { margin: 0.25rem 0; }
+        .rules-box p {
+            margin: 0.25rem 0;
+        }
 
-        .field { text-align: left; margin-bottom: 1rem; }
-        .field label { display: block; font-size: 0.875rem; font-weight: 500; color: var(--text); margin-bottom: 0.25rem; }
+        .field {
+            text-align: left;
+            margin-bottom: 1rem;
+        }
+
+        .field label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 0.25rem;
+        }
 
         .field input[type="text"],
         .field select,
@@ -98,11 +136,28 @@
             box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25);
         }
 
-        .field-error { color: var(--red); font-size: 0.875rem; margin: 0.25rem 0 0; min-height: 1.1em; }
+        .field-error {
+            color: var(--red);
+            font-size: 0.875rem;
+            margin: 0.25rem 0 0;
+            min-height: 1.1em;
+        }
 
-        .checkbox-row { display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.25rem; }
-        .checkbox-row input { margin-top: 0.2rem; }
-        .checkbox-row label { font-size: 0.875rem; color: var(--text); }
+        .checkbox-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .checkbox-row input {
+            margin-top: 0.2rem;
+        }
+
+        .checkbox-row label {
+            font-size: 0.875rem;
+            color: var(--text);
+        }
 
         .btn {
             display: inline-block;
@@ -117,19 +172,51 @@
             transition: background-color 0.2s ease;
         }
 
-        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
-        .btn-green { background: var(--green); }
-        .btn-green:hover:not(:disabled) { background: var(--green-dark); }
-        .btn-indigo { background: var(--primary); }
-        .btn-indigo:hover:not(:disabled) { background: var(--primary-dark); }
-        .btn-blue { background: var(--blue); }
-        .btn-blue:hover:not(:disabled) { background: var(--blue-dark); }
-        .btn-gray { background: var(--gray-btn); }
-        .btn-gray:hover:not(:disabled) { background: var(--gray-btn-dark); }
-        .btn-block { width: 100%; }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-green {
+            background: var(--green);
+        }
+
+        .btn-green:hover:not(:disabled) {
+            background: var(--green-dark);
+        }
+
+        .btn-indigo {
+            background: var(--primary);
+        }
+
+        .btn-indigo:hover:not(:disabled) {
+            background: var(--primary-dark);
+        }
+
+        .btn-blue {
+            background: var(--blue);
+        }
+
+        .btn-blue:hover:not(:disabled) {
+            background: var(--blue-dark);
+        }
+
+        .btn-gray {
+            background: var(--gray-btn);
+        }
+
+        .btn-gray:hover:not(:disabled) {
+            background: var(--gray-btn-dark);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
 
         @media (min-width: 480px) {
-            .btn-block { width: auto; }
+            .btn-block {
+                width: auto;
+            }
         }
 
         .actions {
@@ -141,11 +228,21 @@
         }
 
         @media (min-width: 480px) {
-            .actions { flex-direction: row; }
+            .actions {
+                flex-direction: row;
+            }
         }
 
-        .test-lock { user-select: none; -webkit-user-select: none; }
-        .test-lock input, .test-lock textarea { user-select: text; -webkit-user-select: text; }
+        .test-lock {
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .test-lock input,
+        .test-lock textarea {
+            user-select: text;
+            -webkit-user-select: text;
+        }
 
         .quiz-top {
             display: flex;
@@ -156,8 +253,17 @@
             margin-bottom: 1rem;
         }
 
-        .progress-text { font-size: 0.875rem; font-weight: 500; color: var(--text-muted); }
-        .quiz-meta { display: flex; align-items: center; gap: 0.75rem; }
+        .progress-text {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .quiz-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
 
         .badge-warning {
             font-size: 0.75rem;
@@ -177,9 +283,16 @@
             border-radius: var(--radius);
         }
 
-        .timer.danger { color: var(--red); }
+        .timer.danger {
+            color: var(--red);
+        }
 
-        .question-panel { background: var(--primary-soft); padding: 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow-inner); }
+        .question-panel {
+            background: var(--primary-soft);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-inner);
+        }
 
         .passage-box {
             background: var(--surface);
@@ -192,14 +305,38 @@
             white-space: pre-line;
         }
 
-        .image-box { margin-bottom: 1rem; text-align: center; }
-        .image-box img { max-width: 100%; height: auto; border-radius: var(--radius-sm); }
+        .image-box {
+            margin-bottom: 1rem;
+            text-align: center;
+        }
 
-        .audio-box { margin-bottom: 1rem; }
-        .audio-box audio { width: 100%; }
-        .audio-error { color: var(--red); font-size: 0.875rem; margin-top: 0.25rem; }
+        .image-box img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius-sm);
+        }
 
-        .question-text { font-size: 1.25rem; font-weight: 600; color: var(--primary-soft-text); margin: 0 0 1rem; text-align: left; }
+        .audio-box {
+            margin-bottom: 1rem;
+        }
+
+        .audio-box audio {
+            width: 100%;
+        }
+
+        .audio-error {
+            color: var(--red);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .question-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-soft-text);
+            margin: 0 0 1rem;
+            text-align: left;
+        }
 
         .choices {
             display: grid;
@@ -208,7 +345,9 @@
         }
 
         @media (min-width: 480px) {
-            .choices { grid-template-columns: 1fr 1fr; }
+            .choices {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
         .choice-btn {
@@ -224,25 +363,66 @@
             font: inherit;
         }
 
-        .choice-btn:hover { background: #d1d5db; }
+        .choice-btn:hover {
+            background: #d1d5db;
+        }
 
         .choice-btn.selected {
             background: #a5b4fc;
             box-shadow: 0 0 0 2px var(--primary);
         }
 
-        .feedback { min-height: 2.5rem; margin-top: 1rem; font-size: 1.125rem; font-weight: 500; }
-        .feedback.success { color: var(--green); }
-        .feedback.error { color: var(--red); }
-        .feedback.warning { color: var(--yellow); }
-        .feedback.info { color: var(--blue); }
+        .feedback {
+            min-height: 2.5rem;
+            margin-top: 1rem;
+            font-size: 1.125rem;
+            font-weight: 500;
+        }
 
-        .results-box { text-align: left; background: #f9fafb; border-radius: var(--radius); padding: 1rem; margin-bottom: 1.5rem; }
-        .results-box p { margin: 0.4rem 0; }
-        .score-highlight { color: var(--green); font-weight: 700; }
+        .feedback.success {
+            color: var(--green);
+        }
 
-        .status-msg { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1rem; }
-        .close-fallback { font-size: 0.875rem; color: var(--text-muted); margin-top: 0.75rem; }
+        .feedback.error {
+            color: var(--red);
+        }
+
+        .feedback.warning {
+            color: var(--yellow);
+        }
+
+        .feedback.info {
+            color: var(--blue);
+        }
+
+        .results-box {
+            text-align: left;
+            background: #f9fafb;
+            border-radius: var(--radius);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .results-box p {
+            margin: 0.4rem 0;
+        }
+
+        .score-highlight {
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .status-msg {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .close-fallback {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+        }
 
         .modal-backdrop {
             position: fixed;
@@ -266,21 +446,31 @@
             text-align: center;
         }
 
-        .modal-box h3 { color: var(--red); font-size: 1.125rem; font-weight: 700; margin: 0 0 0.5rem; }
-        .modal-box p { color: var(--text); margin: 0 0 1rem; }
+        .modal-box h3 {
+            color: var(--red);
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin: 0 0 0.5rem;
+        }
 
-        :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+        .modal-box p {
+            color: var(--text);
+            margin: 0 0 1rem;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
 </head>
 
 <body>
 
     <div class="app">
 
-        <!-- ============================================================
-             SCREEN: RESUME AN INTERRUPTED TEST (only shown if a browser
-             crash / accidental refresh state is found for this tab)
-        ============================================================= -->
+        <!-- SCREEN: RESUME AN INTERRUPTED TEST (only shown if a browser crash / accidental refresh state is found for this tab) -->
         <div id="resume-screen" class="hidden card card--center">
             <h1 class="title-secondary">Unfinished Test Found</h1>
             <p class="subtitle">We found an in-progress test for <strong id="resume-name"></strong> (ID: <span
@@ -294,9 +484,7 @@
             </div>
         </div>
 
-        <!-- ============================================================
-             SCREEN 1: STUDENT INFO / START SCREEN
-        ============================================================= -->
+        <!-- SCREEN 1: STUDENT INFO / START SCREEN = -->
         <div id="info-screen" class="hidden card card--center">
             <h1 id="cfg-title-display" class="title-primary">Test Title</h1>
             <p id="cfg-subject-display" class="subtitle">Subject</p>
@@ -339,9 +527,7 @@
             <button id="start-btn" class="btn btn-green btn-block" style="margin-top: 0.5rem;">Start Test</button>
         </div>
 
-        <!-- ============================================================
-             SCREEN 2: QUIZ SCREEN
-        ============================================================= -->
+        <!--   SCREEN 2: QUIZ SCREEN  = -->
         <div id="quiz-screen" class="hidden card">
 
             <div class="quiz-top">
@@ -383,9 +569,7 @@
             </div>
         </div>
 
-        <!-- ============================================================
-             SCREEN 3: RESULTS SCREEN
-        ============================================================= -->
+        <!-- SCREEN 3: RESULTS SCREEN -->
         <div id="results-screen" class="hidden card card--center">
             <h2 class="title-secondary">Test Submitted</h2>
             <p id="result-reason" class="subtitle"></p>
@@ -423,8 +607,7 @@
     </div>
 
     <script>
-        /* =====================================================================
-           HOW TO REUSE THIS FOR A DIFFERENT SUBJECT
+        /*  HOW TO REUSE THIS FOR A DIFFERENT SUBJECT
            ---------------------------------------------------------------------
            1. Edit the CONFIG object below (title, subject, time limit, etc).
            2. Replace the QUESTIONS array with your own questions. Each question
@@ -459,13 +642,13 @@
 
            4. Save the file and open it in a browser (or upload it wherever
               your students will access it) — no server or build step needed.
-        ===================================================================== */
+        ------------------------------------------ */
 
         const CONFIG = {
             testTitle: "Sample Subject Test",     // shown as the page/test title
             subject: "General English",           // shown under the title
-            groups: ["Group 1", "Group 2", "Group 3", "Group 4", "Group 5"], // options in the Group dropdown — rename or add/remove as needed (e.g. "Class A", "Section 2")
-            durationMinutes: 40,                  // exam length
+            groups: ["Group 1", "Group 2", "Group 3", "Group 4", "Group 5", "Group 6"], // options in the Group dropdown 
+            durationMinutes: 30,                  // exam length
             maxViolations: 3,                     // warnings allowed before auto-submit
             shuffleQuestions: true,                // randomize question order per student
             shuffleAnswers: true,                  // randomize each question's answer order per student
@@ -477,7 +660,7 @@
             // Leave scriptUrl empty ("") to run fully standalone with no backend.
             // Paste your deployed Google Apps Script Web App URL here to enable
             // automatic result submission to a Google Sheet.
-            scriptUrl: "",
+            scriptUrl: "https://script.google.com/macros/s/AKfycbwlG-r2YI_b93Er6KWb7NszE95m0D6JISROukWG9efbh0UXoJbK7Ahh6N0bPpP-0CgDGQ/exec",
             // If scriptUrl is set, refuse to start a test for a Student ID that
             // has already submitted a result (checked against the Sheet).
             blockRepeatAttempts: true
@@ -913,10 +1096,7 @@
 
         // ---------------------------------------------------------------
         // Anti-cheat
-        // Note: no website can truly block Alt+Tab, closing the lid, or a
-        // phone camera pointed at the screen — browsers deliberately don't
-        // allow that level of control. What this DOES do, like real exam
-        // software: lock the page to full-screen, detect when the student
+        // lock the page to full-screen, detect when the student
         // leaves the tab/window or exits full-screen, warn them, and
         // auto-submit after too many warnings.
         // ---------------------------------------------------------------
@@ -1202,18 +1382,29 @@
         }
 
         downloadBtn.addEventListener('click', () => {
-            const blob = new Blob([lastReportText], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
+            if (!window.jspdf) { alert('The PDF is still loading. Please wait and try in few seconds'); return; }
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            //const blob = new Blob([lastReportText], { type: 'pdf/plain' });
+            //const url = URL.createObjectURL(blob);
+            //const a = document.createElement('a');
+            const splitText = doc.splitTextToSize(lastReportText, 180);
+
+            //render text to pdf at x=15mm, y=15mm
+            doc.text(splitText, 15, 15);
+
             const safeGroup = (studentGroup || 'group').replace(/[^a-z0-9]+/gi, '_');
             const safeName = (studentName || 'student').replace(/[^a-z0-9]+/gi, '_');
             const safeId = (studentId || 'id').replace(/[^a-z0-9]+/gi, '_');
-            a.href = url;
-            a.download = safeGroup + '_' + safeName + '_' + safeId + '_results.txt';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            //a.href = url;
+            //a.download = safeGroup + '_' + safeName + '_' + safeId + '_results.pdf';
+            //document.body.appendChild(a);
+            //a.click();
+            // document.body.removeChild(a);
+            //URL.revokeObjectURL(url);
+            const fileName = `${safeGroup}_${safeName}_${safeId}_results.pdf`;
+
+            doc.save(fileName);
             resultDownloaded = true;
         });
 
