@@ -491,11 +491,8 @@
 
             <div id="rules-box" class="rules-box">
                 <p>&#8226; This test has <span id="cfg-count-display" class="font-semibold">0</span> question(s).</p>
-                <p>&#8226; Time limit: <span id="cfg-duration-display" class="font-semibold">0</span> minutes. The
-                    test submits automatically when time runs out.</p>
-                <p>&#8226; Once started, do not switch tabs, open other apps, or exit full-screen. Doing so is
-                    recorded as a warning, and after <span id="cfg-maxv-display" class="font-semibold">0</span>
-                    warnings the test is submitted automatically.</p>
+                <p>&#8226; Time limit: <span id="cfg-duration-display" class="font-semibold">0</span> minutes. The test submits automatically when time runs out.</p>
+                <p>&#8226; Once started, do not switch tabs, open other apps, or exit full-screen. Doing so is recorded as a warning, and after <span id="cfg-maxv-display" class="font-semibold">0</span> warnings the test will submit automatically.</p>
                 <p>&#8226; The test cannot be retaken once submitted.</p>
             </div>
 
@@ -645,8 +642,8 @@
         ------------------------------------------ */
 
         const CONFIG = {
-            testTitle: "Sample Subject Test",     // shown as the page/test title
-            subject: "General English",           // shown under the title
+            testTitle: "END OF MONTH TEST",     // shown as the page/test title
+            subject: "English Language",           // shown under the title
             groups: ["Group 1", "Group 2", "Group 3", "Group 4", "Group 5", "Group 6"], // options in the Group dropdown 
             durationMinutes: 30,                  // exam length
             maxViolations: 3,                     // warnings allowed before auto-submit
@@ -676,6 +673,36 @@
             },
             {
                 type: "choice",
+                question: "Read and complete the sentence. 'My friend Alex is American,he's from a city in ________' ",
+                answers: ["USA", "the SAU", "the USA", "the UAE"],
+                correct: 2
+            },
+            {
+                type: "choice",
+                question: "Read and complete the sentence. 'This is my friend Lina, she's from Moscow in________ and she's Russian.' ",
+                answers: ["The GB", "Spain", "Russia", "the UAE"],
+                correct: 2
+            },
+            {
+                type: "choice",
+                question: "Read and complete the sentence. 'My friend's name is Maria and she's from Brazil, she's ________.'",
+                answers: ["Beijin", "Brazilian", "Mexican", "British"],
+                correct: 1
+            },
+            {
+                type: "choice",
+                question: "Read and complete the sentence. 'His name is Carlo and he's ______ from Italy.' ",
+                answers: ["Itolian", "Polish", "Italian", "Russia"],
+                correct: 2
+            },
+            {
+                type: "choice",
+                question: "Read and complete the sentence. 'John is British and he's from Manchester, a city in ________.'",
+                answers: ["Britain", "South Africa", "Batman", "German"],
+                correct: 0
+            },
+            {
+                type: "choice",
                 question: "Which word is closest in meaning to 'happy'?",
                 answers: ["Sad", "Joyful", "Angry", "Tired"],
                 correct: 1
@@ -688,43 +715,208 @@
                 answers: [
                     "A sunny beach with children playing.",
                     "A busy city street on a rainy day.",
-                    "A quiet forest in autumn.",
                     "A snowy mountain peak."
                 ],
                 correct: 1
             },
-            // --- open-ended: describing an image (manually reviewed) ---
             {
-                type: "text",
-                image: "images/classconvo.jpg",
-                question: "Look at the picture. Write 2-3 sentences describing what is happening."
+                type: "choice",
+                image: "images/australiaflag.png",
+                question: "Which sentence best describes this image?",
+                answers: [
+                    "This is the flag of Spain. It's for the Spanish",
+                    "This is the flag of Australia. It's for the Australian.",
+                    "This is the flag of America. It's for the American.",
+                ],
+                correct: 1
+            },
+            {
+                type: "choice",
+                image: "images/japanflag.png",
+                question: "Which sentence best describes this image?",
+                answers: [
+                    "This is the flag of Spain. It's for the Spanish",
+                    "This is the flag of China. It's for the Chinese",
+                    "This is the flag of Janpa. It's for the Japanese.",
+                ],
+                correct: 2
+            },
+            {
+                type: "choice",
+                image: "images/theuk.jpg",
+                question: "Which sentence best describes this image?",
+                answers: [
+                    "This is the flag of Spain. It's for the Spanish",
+                    "This is the flag of the UK. It's for the British",
+                    "This is the flag of Australia. It's for the Australian.",
+                ],
+                correct: 1
+            },
+            {
+                type: "choice",
+                image: "images/spainflag.jpg",
+                question: "Which sentence best describes this image?",
+                answers: [
+                    "This is the flag of Spain. It's for the Spanish",
+                    "This is the flag of China. It's for the Chinese",
+                    "This is the flag of Australia. It's for the Australian.",
+                ],
+                correct: 0
+            },
+            {
+                type: "choice",
+                passage: "Read the sentence and choose the best answer A, B or C",
+                question: "Hello, my name's joe and I_____ from London",
+                answers: ["A) am", "B) is", "C) are"],
+                correct: 0
+            },
+            {
+                type: "choice",
+                passage: "Read the sentence and choose the best answer A, B or C",
+                question: "We aren't from Australia__________from Canada",
+                answers: ["A) he's", "B) we're", "C) they're"],
+                correct: 1
+            },
+            {
+                type: "choice",
+                passage: "Read the sentence and choose the best answer A, B or C",
+                question: "No, you_______________ in my class",
+                answers: ["A) isn't", "B) aren't", "C) am not"],
+                correct: 1
+            },
+            {
+                type: "choice",
+                passage: "Read the sentence and choose the best answer A, B or C",
+                question: "Your teacher's nice, where_________he from?",
+                answers: ["A) are", "B) is", "C) will"],
+                correct: 1
+            },
+            {
+                type: "choice",
+                passage: "Read the sentence and choose the best answer A, B or C",
+                question: "Kumiko is Japanese, but she _______ from Tokyo",
+                answers: ["A) am not", "B) aren't", "C) isn't"],
+                correct: 2
+            },
+            {
+                type: "choice",
+                passage: "Read the sentence and choose the best answer A, B or C",
+                question: "Hello, __________ your name?",
+                answers: ["A) who's", "B) how's", "C) what's"],
+                correct: 2
+            },
+            {
+                type: "choice",
+                passage: "Read the email from Harumi.Choose the best answer (A, B or C) for each space",
+                question: "Hi Anna, How____________ ? And how are your friends, Hannah and Megan? I'm fine.",
+                answers: ["A) is she", "B) am I", "C) are you"],
+                correct: 2
+            },
+            {
+                type: "choice",
+                passage: "Read the email from Harumi.Choose the best answer (A, B or C) for each space",
+                question: " I'm not in Japan now, I__________a student in a small language school in Britain.",
+                answers: ["A) is", "B) am", "C) are "],
+                correct: 1
+            },
+            {
+                type: "choice",
+                passage: "Read the email from Harumi.Choose the best answer (A, B or C) for each space",
+                question: "It’s a good school. ____________ you a student now? ",
+                answers: ["A) is", "B) are", "C) am"],
+                correct: 1
+            },
+            {
+                type: "choice",
+                passage: "Read the email from Harumi.Choose the best answer (A, B or C) for each space",
+                question: "My teacher’s name is Tann and he’s nice. He isn’t British, he’s from Toronto in Canada. _____your English teacher from? Is he from the UK? ",
+                answers: ["A) Where's", "B) How's", "C) What's"],
+                correct: 0
+            },
+            {
+                type: "choice",
+                passage: "Read the email from Harumi.Choose the best answer (A, B or C) for each space",
+                question: " My friends here are students and _________ in my class. Their names are Laura and Carlo.",
+                answers: ["A) he's", "B) they're", "C) I'm"],
+                correct: 1
+            },
+            {
+                type: "choice",
+                passage: "Read the email from Harumi.Choose the best answer (A, B or C) for each space",
+                question: "They _______ from Japan, they’re from Bologna in Italy and they’re married. We’re good friends now.",
+                answers: ["A) isn't", "B) am not", "C) aren't"],
+                correct: 2
+            },
+
+
+            // --- listening (audio + multiple choice) ---
+            {
+                type: "choice",
+                audio: "audio/himynameis.mp3",
+                question: "Listen to the audio clip and choose the best reply.",
+                answers: ["A) Hi, my name's Sophia", "B) I'm good", "C) And you"],
+                correct: 0
+
+            },
+            {
+                type: "choice",
+                audio: "audio/nicetomeetyou2.mp3",
+                question: "Listen to the audio clip and choose the best reply.",
+                answers: ["A) Are you Ok?", "B) Nice to meet you too", "C) Good afternoon"],
+                correct: 1
+
+            },
+            {
+                type: "choice",
+                audio: "audio/ishejapanese.mp3",
+                question: "Listen to the audio clip and choose the best reply.",
+                answers: ["A) No, he isn't", "B) Nic to meet you", "C) And you?"],
+                correct: 0
+
+            },
+            {
+                type: "choice",
+                audio: "audio/imfinethanks.mp3",
+                question: "Listen to the audio clip and choose the best reply.",
+                answers: ["A) I'm fine", "B) And you?", "C) I'm fine, thanks."],
+                correct: 2
+
+            },
+            {
+                type: "choice",
+                audio: "audio/goodafternoon.mp3",
+                question: "Listen to the audio clip and choose the best reply.",
+                answers: ["A) Good night", "B) I'm good, thanks?", "C) Good afternoon."],
+                correct: 2
+
             },
             // --- reading comprehension (passage + multiple choice) ---
             {
                 type: "choice",
-                passage: "Maria wakes up at 6 a.m. every day. She goes for a short run, then has breakfast with her family before heading to work.",
-                question: "According to the passage, what does Maria do right after waking up?",
-                answers: ["Has breakfast", "Goes to work", "Goes for a run", "Reads a book"],
-                correct: 2
-            },
-            // --- open-ended writing (manually reviewed) ---
-            {
-                type: "text",
-                question: "Write a short paragraph (4-5 sentences) about your favorite hobby and why you enjoy it."
-            },
-            // --- listening (audio + multiple choice) ---
-            {
-                type: "choice",
-                audio: "audios/bookinghotel.mp3",
-                question: "Listen to the audio clip. What is the speaker mainly talking about?",
-                answers: [
-                    "Booking a hotel room",
-                    "Ordering food at a restaurant",
-                    "Asking for directions",
-                    "Complaining about a product"
-                ],
+                passage: "Maria wakes up at 6 a.m. She goes for a short run, then has breakfast with her family before heading to work.",
+                question: "According to the passage, how will Maria greet the family?",
+                answers: ["Good morning", "Good afternoon", "Good day"],
                 correct: 0
-            }
+            },
+
+            // --- open-ended: describing an image (manually reviewed) ---  
+            /**{
+                 type: "choice",
+                 audio: "audios/bookinghotel.mp3",
+                 question: "Listen to the audio clip. What is the speaker mainly talking about?",
+                 answers: [
+                     "Booking a hotel room",
+                     "Ordering food at a restaurant",
+                     "Asking for directions",
+                     "Complaining about a product"
+                 ],
+                 correct: 0
+             },*/
+            // --- open-ended writing (manually reviewed) ---
+            /** {
+                 type: "text",
+                 question: "Write a short paragraph (4-5 sentences) about your favorite hobby and why you enjoy it."
+             },*/
         ];
 
         // ---------------------------------------------------------------
